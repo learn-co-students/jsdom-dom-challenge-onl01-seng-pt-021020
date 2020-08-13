@@ -60,10 +60,10 @@ document.getElementById("pause").addEventListener("click", function(){
 document.getElementById("submit").addEventListener("click", function(event){
   event.preventDefault();
   let comment = document.querySelector('input#comment-input').value
-  let commentsList = document.querySelector('.comments')
-  let p = document.createElement("p");
+  let commentsList = document.querySelector('ul#list')
+  let li = document.createElement("li");
   let node = document.createTextNode(comment)
-  p.appendChild(node);
-  commentsList.appendChild(p);
+  li.appendChild(node);
+  commentsList.appendChild(li);
   document.querySelector('input#comment-input').value = ''
 });

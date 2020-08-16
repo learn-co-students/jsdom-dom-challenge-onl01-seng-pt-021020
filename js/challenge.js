@@ -1,17 +1,21 @@
 let i =-1;
 let j = 0;
 const interval = setInterval( increment, 1000);
-let running = true
+let Enabled = true
 
 
 function increment(){
-    i++;
-    document.querySelector('h1#counter').textContent = i;
-    j = 0;
+	if (Enabled === true) 
+	{
+	    i++;
+	    document.querySelector('h1#counter').textContent = i;
+	    j = 0;
+	}
 }
 
-increment();
 
+
+ increment();
 document.getElementById("minus").addEventListener("click", function(){
   i--;
   document.querySelector('h1#counter').textContent = i;
@@ -51,23 +55,24 @@ document.getElementById("submit").addEventListener("click", function(event){
 
 
 document.getElementById("pause").addEventListener("click", function(){
-  if(running === true){
+  if(Enabled === true){
 
-  	 clearInterval(interval); 
+  	 
   
-   running = false;
-    
+   Enabled = false;
+   
     document.querySelector('#pause').innerText = "resume";
     document.getElementById("minus").disabled = true;
     document.getElementById("plus").disabled = true;
     document.getElementById("heart").disabled = true;
     document.getElementById("submit").disabled = true;
      document.getElementById('comment-input').disabled = true;
-  } else 
+  } else  
 
   {
-   running = true;
 
+   Enabled = true;
+	
     document.querySelector('#pause').innerText = "pause"
     document.getElementById("minus").disabled = false;
     document.getElementById("plus").disabled = false;

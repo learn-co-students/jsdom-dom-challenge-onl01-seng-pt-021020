@@ -10,10 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const comments = document.getElementById('list')
     let counterSpeed = setInterval(countUp, 1000)
     let running = true
+    let likeCounter
 
     function countUp() {
         if (running === true){
-            counter.innerHTML++
+            counter.innerHTML++;
+            likeCounter = 0
         }
     };
 
@@ -26,10 +28,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     heart.addEventListener("click", function() {
+        likeCounter++;
         const likesList = document.createElement('li');
-        let likeTracker = document.createTextNode(`${counter.innerHTML} has been liked.`)
+        let likeTracker = document.createTextNode(`${counter.innerHTML} has been liked ${likeCounter} times.`)
         likesList.appendChild(likeTracker);
-        likes.appendChild(likesList);
+        if (likeCounter > 1){
+            likes.lastChild.replaceWith(likesList)
+        } else{
+            likes.appendChild(likesList);
+        }
+        
     });
 
     submit.addEventListener('click', function() {
@@ -43,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     pause.addEventListener('click', function() {
         if (running === true){
-            running = false
+            running = false;
             pause.innerHTML = "resume";
             heart.disabled = true;
             minus.disabled = true;
@@ -52,6 +60,8 @@ document.addEventListener("DOMContentLoaded", function() {
             commentForm.disabled = true;
         }
         else {
+            counter.innerHTML = 0;
+
             running = true;
             pause.innerHTML = "pause";
             heart.disabled = false;

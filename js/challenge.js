@@ -5,6 +5,7 @@
     const increment = document.getElementById('plus');
     const like = document.getElementById('heart');
     const comment = document.getElementById('comment-form');
+    const submit = document.getElementById('submit');
 
     // timer state
     let timer = true
@@ -32,25 +33,47 @@
 
     // like
     like.addEventListener('click', function(e) {
-        let likes = document.querySelector('.likes');
 
-        let liked = document.createElement('li');
+        let likes = document.querySelector('.likes');
 
         let likedNum = parseInt(counter.innerHTML);
 
-        liked.innerHTML = likedNum;
+        const existingLike = document.getElementById(likedNum)
 
-        likes.append(liked);
+        if (existingLike === null) {
+            let liked = document.createElement('li');
+            liked.id = likedNum
+            const str = `${likedNum} has been liked 1 time`
+            liked.innerHTML = str;
+            likes.append(liked);
+        } else {
+            const likeArr = existingLike.innerText.split(' ')
+            likeArr.pop()
+            let likeNum = likeArr.pop()
+
+            likeArr.push((parseInt(likeNum)) + 1)
+            likeArr.push('times')
+            existingLike.innerText = likeArr.join(' ')
+        }
     });
 
     // pause
     pause.addEventListener('click', function(e) {
         if (timer) {
-            timer = false;
+            timer = false
             pause.innerText = "Resume";
+            plus.disabled = true
+            minus.disabled = true
+            heart.disabled = true
+            submit.disabled = true
+            counter.innerText = 0;
         } else {
             timer = true;
             pause.innerText = "Pause"
+            plus.disabled = false
+            minus.disabled = false
+            heart.disabled = false
+            submit.disabled = false
         }
     });
 
@@ -75,14 +98,3 @@
         // Clear String
         document.querySelector('input#comment-input').value = '';
     })
-
-
-
-// can manually increment and decrement the counter w/ plus & minus button
-
-// user can like a individual number of the counter - I should see the count of the number of likes associated with that number
-
-// as a user, I can pause the counter && disable all buttong except pause && show the button resume.
-
-
-// leave comments on my gameplace
